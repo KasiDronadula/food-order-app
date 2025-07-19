@@ -5,18 +5,17 @@ import { Card } from "@mui/material";
 
 const Notifications = () => {
   const dispatch = useDispatch();
-
   const { order } = useSelector((store) => store);
 
   useEffect(() => {
     dispatch(getUsersNotificationAction());
-  }, []);
+  }, [dispatch]); // ✅ Added dispatch to dependency array
 
   return (
     <div className="space-y-5 px-5 lg:px-20">
       <h1 className="py-5 font-bold text-2xl text-center">Notifications</h1>
-      {order.notifications.map((item) => (
-        <Card className="p-5">
+      {order?.notifications?.map((item, index) => (
+        <Card key={index} className="p-5"> {/* ✅ Added key */}
           <p>{item.message}</p>
         </Card>
       ))}
